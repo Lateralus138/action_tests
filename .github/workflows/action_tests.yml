@@ -31,7 +31,7 @@ jobs:
             fi
             echo -e "$template" > docs/json/${name}.json || exit 3
             if [[ "$name" == "distributor_id" ]]; then
-              sed -i "s/COLORPH/00aedb/g" docs/json/${name}.json
+              sed -i "s/COLORPH/00aba9/g" docs/json/${name}.json
               sed -i "s/\"label\": \".*\"/\"label\": \"$dist_label\"/g" docs/json/${name}.json
               sed -i "s/\"message\": \".*\"/\"message\": \"$dist_message\"/g" docs/json/${name}.json
             fi
