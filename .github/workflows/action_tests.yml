@@ -36,17 +36,17 @@ jobs:
               sed -i "s/\"message\": \".*\"/\"message\": \"$dist_message\"/g" docs/json/${name}.json
             fi
             if [[ "$name" == "description" ]]; then
-              sed -i "s/COLORPH/eff4ff/g" docs/json/${name}.json
+              sed -i "s/COLORPH/1e7145/g" docs/json/${name}.json
               sed -i "s/\"label\": \".*\"/\"label\": \"$desc_label\"/g" docs/json/${name}.json
               sed -i "s/\"message\": \".*\"/\"message\": \"$desc_message\"/g" docs/json/${name}.json
             fi
             if [[ "$name" == "release" ]]; then
-              sed -i "s/COLORPH/2d89ef/g" docs/json/${name}.json
+              sed -i "s/COLORPH/ffc40d/g" docs/json/${name}.json
               sed -i "s/\"label\": \".*\"/\"label\": \"$release_label\"/g" docs/json/${name}.json
               sed -i "s/\"message\": \".*\"/\"message\": \"$release_message\"/g" docs/json/${name}.json
             fi
             if [[ "$name" == "codename" ]]; then
-              sed -i "s/COLORPH/2b5797/g" docs/json/${name}.json
+              sed -i "s/COLORPH/7e3878/g" docs/json/${name}.json
               sed -i "s/\"label\": \".*\"/\"label\": \"$name_label\"/g" docs/json/${name}.json
               sed -i "s/\"message\": \".*\"/\"message\": \"$name_message\"/g" docs/json/${name}.json
             fi
