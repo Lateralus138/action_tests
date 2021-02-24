@@ -14,7 +14,7 @@ jobs:
           dist_message=$(printf "${lsb_array[0]//$'\t'/}" | cut -d ':' -f 2)
           desc_label=$(printf "${lsb_array[1]//$'\t'/}" | cut -d ':' -f 1)
           desc_message=$(printf "${lsb_array[1]//$'\t'/}" | cut -d ':' -f 2)
-          ralease_label=$(printf "${lsb_array[2]//$'\t'/}" | cut -d ':' -f 1)
+          release_label=$(printf "${lsb_array[2]//$'\t'/}" | cut -d ':' -f 1)
           release_message=$(printf "${lsb_array[2]//$'\t'/}" | cut -d ':' -f 2)
           name_label=$(printf "${lsb_array[3]//$'\t'/}" | cut -d ':' -f 1)
           name_message=$(printf "${lsb_array[3]//$'\t'/}" | cut -d ':' -f 2)
