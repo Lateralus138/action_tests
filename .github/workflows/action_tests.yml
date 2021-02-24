@@ -48,7 +48,7 @@ jobs:
             fi
             if [[ "$name" == "runtime" ]]; then
               sed -i "s/\"label\": \".*\"/\"label\": \"$time_label\"/g" docs/json/${name}.json
-              sed -i "s/\"message\": \".*\"/\"message\": \"$(bc -l <<< "$(date +%s%N | cut -b1-13) - $time_start")\"/g" docs/json/${name}.json
+              sed -i "s/\"message\": \".*\"/\"message\": \"$(bc -l <<< "$(date +%s%N | cut -b1-13) - $time_start")ms\"/g" docs/json/${name}.json
             fi
           done
       - uses: stefanzweifel/git-auto-commit-action@v4
