@@ -1,8 +1,8 @@
 {
 	"schemaVersion": 1,
-	"color": "00aedb",
+	"color": "da532c",
 	"label": "Action Run Time",
-	"message": "103ms",
+	"message": "116ms",
 	"labelColor": "1d1d1d",
 	"style": "for-the-badge",
 	"namedLogo": "ubuntu"
