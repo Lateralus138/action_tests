@@ -1,0 +1,9 @@
+{
+	"schemaVersion": 1,
+	"color": "00aedb",
+	"label": "Distributor ID",
+	"message": "Ubuntu",
+	"labelColor": "1d1d1d",
+	"style": "for-the-badge",
+	"namedLogo": "ubuntu"
+}
