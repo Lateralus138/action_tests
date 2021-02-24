@@ -1,0 +1,49 @@
+name: Linux Build
+on:
+  push:
+    branches: [ master ]
+jobs:
+  action_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Generate OS Endpoint
+        run: |
+          IFS= readarray lsb_array < <(lsb_release -a 2>/dev/null)
+          dist_label=$(printf "${lsb_array[0]//$'\t'/}" | cut -d ':' -f 1)
+          dist_message=$(printf "${lsb_array[0]//$'\t'/}" | cut -d ':' -f 2)
+          desc_label=$(printf "${lsb_array[1]//$'\t'/}" | cut -d ':' -f 1)
+          desc_message=$(printf "${lsb_array[1]//$'\t'/}" | cut -d ':' -f 2)
+          ralease_label=$(printf "${lsb_array[2]//$'\t'/}" | cut -d ':' -f 1)
+          release_message=$(printf "${lsb_array[2]//$'\t'/}" | cut -d ':' -f 2)
+          name_label=$(printf "${lsb_array[3]//$'\t'/}" | cut -d ':' -f 1)
+          name_message=$(printf "${lsb_array[3]//$'\t'/}" | cut -d ':' -f 2)
+          template='{\n\t"schemaVersion": 1,\n\t"color": "00aedb",\n\t"label": "PLACEHOLDERA",\n\t"message": "PLACEHOLDERB",\n\t"labelColor": "1d1d1d",\n\t"style": "for-the-badge",\n\t"namedLogo": "ubuntu"\n}'
+          if ! [[ -d "docs/json" ]]; then
+            mkdir -p docs/json || exit 1
+          fi
+          for name in distributor_id description release codename; do
+            if ! [[ -f "docs/json/${name}.json" ]]; then
+              touch docs/json/${name}.json || exit 2
+            fi
+            echo -e "$template" > docs/json/${name}.json || exit 3
+            if [[ "$name" == "distributor_id" ]]; then
+              sed -i "s/\"label\": \".*\"/\"label\": \"$dist_label\"/g" docs/json/${name}.json
+              sed -i "s/\"message\": \".*\"/\"message\": \"$dist_message\"/g" docs/json/${name}.json
+            fi
+            if [[ "$name" == "description" ]]; then
+              sed -i "s/\"label\": \".*\"/\"label\": \"$desc_label\"/g" docs/json/${name}.json
+              sed -i "s/\"message\": \".*\"/\"message\": \"$desc_message\"/g" docs/json/${name}.json
+            fi
+            if [[ "$name" == "release" ]]; then
+              sed -i "s/\"label\": \".*\"/\"label\": \"$release_label\"/g" docs/json/${name}.json
+              sed -i "s/\"message\": \".*\"/\"message\": \"$release_message\"/g" docs/json/${name}.json
+            fi
+            if [[ "$name" == "codename" ]]; then
+              sed -i "s/\"label\": \".*\"/\"label\": \"$name_label\"/g" docs/json/${name}.json
+              sed -i "s/\"message\": \".*\"/\"message\": \"$name_message\"/g" docs/json/${name}.json
+            fi
+          done
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Generated OS Endpoint
