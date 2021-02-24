@@ -9,7 +9,10 @@ jobs:
       - uses: actions/checkout@v2
       - name: Generate OS Endpoint
         run: |
+          time_start=$(date +%s%N | cut -b1-13)
           IFS= readarray lsb_array < <(lsb_release -a 2>/dev/null)
+          time_label="Action Run Time"
+          time_message=""
           dist_label=$(printf "${lsb_array[0]//$'\t'/}" | cut -d ':' -f 1)
           dist_message=$(printf "${lsb_array[0]//$'\t'/}" | cut -d ':' -f 2)
           desc_label=$(printf "${lsb_array[1]//$'\t'/}" | cut -d ':' -f 1)
@@ -22,7 +25,7 @@ jobs:
           if ! [[ -d "docs/json" ]]; then
             mkdir -p docs/json || exit 1
           fi
-          for name in distributor_id description release codename; do
+          for name in distributor_id description release codename runtime; do
             if ! [[ -f "docs/json/${name}.json" ]]; then
               touch docs/json/${name}.json || exit 2
             fi
@@ -42,6 +45,10 @@ jobs:
             if [[ "$name" == "codename" ]]; then
               sed -i "s/\"label\": \".*\"/\"label\": \"$name_label\"/g" docs/json/${name}.json
               sed -i "s/\"message\": \".*\"/\"message\": \"$name_message\"/g" docs/json/${name}.json
+            fi
+            if [[ "$name" == "runtime" ]]; then
+              sed -i "s/\"label\": \".*\"/\"label\": \"$time_label\"/g" docs/json/${name}.json
+              sed -i "s/\"message\": \".*\"/\"message\": \"$(bc -l <<< "$(date +%s%N | cut -b1-13) - $time_start")\"/g" docs/json/${name}.json
             fi
           done
       - uses: stefanzweifel/git-auto-commit-action@v4

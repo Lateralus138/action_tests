@@ -16,4 +16,8 @@ These badge endpoints were created with a GitHub Action run on `ubuntu-latest` w
 
 ![Code Name](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Lateralus138/action_tests/master/docs/json/codename.json)
 
+Last action runtime:
+
+![Action Runtime](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/Lateralus138/action_tests/master/docs/json/runtime.json)
+
 ___
